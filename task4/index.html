@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 6.4</title>
+  <style>
+    .editable {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .edit-mode {
+      border: 2px solid blue;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div class="editable" data-id="1">
+    <p>Текст блоку 1</p>
+    <button onclick="deleteBlock(1)">Видалити</button>
+    <button onclick="editBlock(1)">Редагувати</button>
+  </div>
+
+  <div class="editable" data-id="2">
+    <p>Текст блоку 2</p>
+    <button onclick="deleteBlock(2)">Видалити</button>
+    <button onclick="editBlock(2)">Редагувати</button>
+  </div>
+</div>
+
+<div class="editable" data-id="3">
+  <p>Текст блоку 3</p>
+  <button onclick="deleteBlock(3)">Видалити</button>
+  <button onclick="editBlock(3)">Редагувати</button>
+</div>
+</div>
+
+<script>
+  function deleteBlock(id) {
+    var element = document.querySelector(`.editable[data-id="${id}"]`);
+    if (element) {
+      element.remove();
+    }
+  }
+
+  function editBlock(id) {
+    var element = document.querySelector(`.editable[data-id="${id}"]`);
+    if (element) {
+      element.classList.add("edit-mode");
+
+      var text = element.querySelector("p").innerText;
+      var textarea = document.createElement("textarea");
+      textarea.value = text;
+
+      // Замінюємо <p> на <textarea>
+      element.replaceChild(textarea, element.querySelector("p"));
+
+      // Додаємо подію для зняття фокуса з textarea
+      textarea.addEventListener("blur", function () {
+        element.classList.remove("edit-mode");
+
+        var newText = textarea.value;
+        var newP = document.createElement("p");
+        newP.innerText = newText;
+
+        // Замінюємо <textarea> на новий <p>
+        element.replaceChild(newP, textarea);
+      });
+
+      // Фокусуємося на textarea
+      textarea.focus();
+    }
+  }
+</script>
+
+</body>
+</html>

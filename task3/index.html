@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 6.3</title>
+  <style>
+    #colorPalette {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      width: 100px;
+    }
+
+    .color {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      border: 2px solid transparent; /* Додаємо рамку */
+    }
+
+    .selected {
+      border-color: #000; /* Колір рамки для обраних кольорів */
+    }
+
+    #rectangle {
+      width: 300px;
+      height: 200px;
+      margin-top: 20px;
+      background: linear-gradient(to right, #000000, #ffffff);
+    }
+  </style>
+</head>
+<body>
+
+<div id="colorPalette">
+  <div class="color" style="background-color: #ff0000;"></div>
+  <div class="color" style="background-color: #00ff00;"></div>
+  <div class="color" style="background-color: #0000ff;"></div>
+  <div class="color" style="background-color: #ffff00;"></div>
+  <div class="color" style="background-color: #ff00ff;"></div>
+  <div class="color" style="background-color: #00ffff;"></div>
+  <div class="color" style="background-color: #ff9900;"></div>
+  <div class="color" style="background-color: #9900ff;"></div>
+  <div class="color" style="background-color: #0099ff;"></div>
+  <!-- Додайте інші кольори, які вам потрібні -->
+</div>
+
+<div id="rectangle"></div>
+
+<script>
+  const colorPalette = document.getElementById('colorPalette');
+  const rectangle = document.getElementById('rectangle');
+  let selectedColors = [];
+
+  colorPalette.addEventListener('click', (event) => {
+    const selectedColor = event.target.style.backgroundColor;
+
+    if (selectedColors.includes(selectedColor)) {
+      // Видалити колір, якщо він вже обраний
+      selectedColors = selectedColors.filter(color => color !== selectedColor);
+      event.target.classList.remove('selected');
+    } else {
+      // Додати колір, якщо він ще не обраний
+      selectedColors.push(selectedColor);
+      event.target.classList.add('selected');
+    }
+
+    // Оновити градієнт для прямокутника
+    updateGradient();
+  });
+
+  function updateGradient() {
+    if (selectedColors.length === 0) {
+      // Якщо немає обраних кольорів, використовуйте за замовчуванням градієнт
+      rectangle.style.background = 'linear-gradient(to right, #000000, #ffffff)';
+    } else if (selectedColors.length === 1) {
+      // Якщо обрано тільки один колір, заливайте прямокутник цим кольором
+      rectangle.style.background = selectedColors[0];
+    } else {
+      // Якщо обрано більше одного кольору, використовуйте градієнт
+      const gradient = 'linear-gradient(to right, ' + selectedColors.join(', ') + ')';
+      rectangle.style.background = gradient;
+    }
+  }
+</script>
+</body>
+</html>

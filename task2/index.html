@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 6.2</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 5px 5px 5px 5px;
+        }
+
+        td {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+        }
+
+        textarea{
+            width: 200px;
+            height: 200px;
+            margin: 5px 5px 5px 5px;
+
+        }
+
+        .flex{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+<body>
+
+<div class = "flex">
+    <label for="inputText"></label><textarea id="inputText" placeholder="Введіть нулі та одиниці" oninput="generateTable()"></textarea>
+<div id="outputTable"></div>
+</div>
+
+<script>
+    function generateTable() {
+        // Отримати введені дані з textarea
+        const inputText = document.getElementById('inputText').value.trim();
+
+        // Розбити введений текст на рядки
+        const rows = inputText.split('\n');
+
+        // Створити таблицю
+        let tableHTML = '<table>';
+        for (const row of rows) {
+            tableHTML += '<tr>';
+            for (const char of row) {
+                // Визначити колір квадрата
+                const color = char === '1' ? 'black' : 'white';
+                // Додати квадрат до рядка
+                tableHTML += `<td style="background-color: ${color};"></td>`;
+            }
+            tableHTML += '</tr>';
+        }
+        tableHTML += '</table>';
+
+        // Відобразити таблицю
+        document.getElementById('outputTable').innerHTML = tableHTML;
+    }
+</script>
+
+</body>
+</html>

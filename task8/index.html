@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 6.8</title>
+    <style>
+        /* Стилі для зміни кольору фону при натисканні */
+        .selected {
+            background-color: lime;
+        }
+        li {
+            cursor: pointer;
+            max-width: fit-content;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="bookList">
+    <li onclick="changeColor(this)">1 «Володар кілець» Джон Р. Р. Толкін</li>
+    <li onclick="changeColor(this)">2 «Гордість і упередження» Джейн Остін</li>
+    <li onclick="changeColor(this)">3 «Темні початки» Філіп Пулман</li>
+    <li onclick="changeColor(this)">4 «Автостопом по галактиці» Дуглас Адамс</li>
+    <li onclick="changeColor(this)">5 «Гаррі Поттер і Кубок вогню» Джоан Роулінг</li>
+    <li onclick="changeColor(this)">6 «Вбити пересмішника» Харпер Лі</li>
+</ul>
+
+<script>
+    function changeColor(element) {
+        // Отримуємо всі елементи списку
+        var listItems = document.getElementById('bookList').getElementsByTagName('li');
+
+        // Знімаємо клас 'selected' у всіх елементів списку
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].classList.remove('selected');
+        }
+
+        // Додаємо клас 'selected' тільки для натисканого елемента
+        element.classList.add('selected');
+    }
+</script>
+
+</body>
+</html>
